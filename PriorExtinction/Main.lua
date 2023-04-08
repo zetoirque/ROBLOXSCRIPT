@@ -1,6 +1,11 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("Prior Extinction!", "Ocean")
 
+local Tab3 = Window:NewTab("Auto-Farm")
+local Section5 = Tab3:NewSection("Parameters")
+local Section4 = Tab3:NewSection("TP-Fossil")
+local Section3 = Tab3:NewSection("Auto-Fossil")
+
 local Tab = Window:NewTab("ESP")
 local Section = Tab:NewSection("ESP")
 
@@ -394,7 +399,7 @@ end)
 
 
 
-Section2:NewKeybind("Fly", "", Enum.KeyCode.E, function()
+Section2:NewKeybind("Fly", "", Enum.KeyCode.X, function()
 
     if flying == true then 
 
@@ -410,4 +415,104 @@ end)
 
 Section2:NewSlider("FlySpeed", "", 150, 50, function(s)
     FlySpeed = s
+end)
+
+
+
+
+
+local teleport_table = {location1 = game.Workspace.SpawnedFossils:FindFirstChild("Small Fossil").FossilS.Position}
+
+local tween_s = game:GetService('TweenService')
+local tween_i = TweenInfo.new(0.5,Enum.EasingStyle.Linear)
+
+local lp = game.Players.LocalPlayer
+
+function TweenFunc(v)
+
+    if lp.Character and lp.Character:FindFirstChild("Body")then
+
+        local cf = CFrame.new(v) * CFrame.new(0,6,0)
+        local a = tween_s:Create(lp.Character.Body, tween_i, {CFrame=cf})
+
+        a:Play()
+
+
+
+    end
+
+end
+
+function TpToFossilLFunc()
+    for i, v in pairs(game.Workspace.SpawnedFossils:GetChildren()) do
+            if v.Name == "Large Fossil" or v.Name == "Tyrannosaurus Rex Fossil" or v.Name == "Triceratops Fossil" then
+                TweenFunc(v.FossilL.Position)
+                wait(1.5)
+                TweenFunc(v.FossilL.Position)
+
+                return false
+
+            end
+    end
+end
+
+function TpToFossilMFunc()
+    for i, v in pairs(game.Workspace.SpawnedFossils:GetChildren()) do
+            if v.Name == "Medium Fossil" then
+                TweenFunc(v.FossilM.Position)
+                wait(1.5)
+                TweenFunc(v.FossilM.Position)
+
+                return false
+
+            end
+    end
+end
+
+function TpToFossilSFunc()
+    for i, v in pairs(game.Workspace.SpawnedFossils:GetChildren()) do
+        if v.Name == "Small Fossil" then
+                TweenFunc(v.FossilS.Position)
+                wait(1.5)
+                TweenFunc(v.FossilS.Position)
+
+                return false
+        end
+    end
+end
+
+
+
+Section5:NewToggle("Anchored", "", function(ss)
+
+    if ss then
+
+        if lp.Character and lp.Character:FindFirstChild("Body") then
+
+            game.Players.LocalPlayer.Character:FindFirstChild("Body").Anchored = true
+    
+        end
+
+    else
+
+        if lp.Character and lp.Character:FindFirstChild("Body") then
+
+            game.Players.LocalPlayer.Character:FindFirstChild("Body").Anchored = false
+    
+        end
+
+    end
+
+end)
+
+Section4:NewButton("TP To A Random Large Fossil (T-REX, Trice, large)", "", function()
+    TpToFossilLFunc()
+end)
+
+Section4:NewButton("TP To A Random Medium Fossil", "", function()
+    TpToFossilMFunc()
+end)
+
+Section4:NewButton("TP To A Random Small Fossil", "", function()
+    TpToFossilSFunc()
 end)
