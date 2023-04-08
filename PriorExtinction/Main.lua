@@ -2,6 +2,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("Prior Extinction!", "Ocean")
 
 local Tab3 = Window:NewTab("Auto-Farm")
+local Section6 = Tab3:NewSection("Importante-Place")
 local Section5 = Tab3:NewSection("Parameters")
 local Section4 = Tab3:NewSection("TP-Fossil")
 local Section3 = Tab3:NewSection("Auto-Fossil")
@@ -446,9 +447,16 @@ end
 function TpToFossilLFunc()
     for i, v in pairs(game.Workspace.SpawnedFossils:GetChildren()) do
             if v.Name == "Large Fossil" or v.Name == "Tyrannosaurus Rex Fossil" or v.Name == "Triceratops Fossil" then
+
+                game.Players.LocalPlayer.Character:FindFirstChild("Body").Anchored = true
+
                 TweenFunc(v.FossilL.Position)
                 wait(1.5)
                 TweenFunc(v.FossilL.Position)
+
+                wait(1)
+
+                game.Players.LocalPlayer.Character:FindFirstChild("Body").Anchored = false
 
                 return false
 
@@ -459,9 +467,16 @@ end
 function TpToFossilMFunc()
     for i, v in pairs(game.Workspace.SpawnedFossils:GetChildren()) do
             if v.Name == "Medium Fossil" then
+
+                game.Players.LocalPlayer.Character:FindFirstChild("Body").Anchored = true
+
                 TweenFunc(v.FossilM.Position)
                 wait(1.5)
                 TweenFunc(v.FossilM.Position)
+
+                wait(1)
+
+                game.Players.LocalPlayer.Character:FindFirstChild("Body").Anchored = false
 
                 return false
 
@@ -472,15 +487,21 @@ end
 function TpToFossilSFunc()
     for i, v in pairs(game.Workspace.SpawnedFossils:GetChildren()) do
         if v.Name == "Small Fossil" then
+
+                game.Players.LocalPlayer.Character:FindFirstChild("Body").Anchored = true
+
                 TweenFunc(v.FossilS.Position)
-                wait(1.5)
+                wait(1)
                 TweenFunc(v.FossilS.Position)
+
+                wait(1)
+
+                game.Players.LocalPlayer.Character:FindFirstChild("Body").Anchored = false
 
                 return false
         end
     end
 end
-
 
 
 Section5:NewToggle("Anchored", "", function(ss)
@@ -515,4 +536,31 @@ end)
 
 Section4:NewButton("TP To A Random Small Fossil", "", function()
     TpToFossilSFunc()
+end)
+
+local PPart = Instance.new("Part", game.Workspace)
+PPart.Anchored = true
+PPart.CFrame = CFrame.new(-3484, 207.7, 825)
+PPart.Size = Vector3.new(4,0.1,4)
+
+local Part = Instance.new("Part", game.Workspace)
+Part.Anchored = true
+Part.CFrame = CFrame.new(-4140, 323, 1685)
+Part.Size = Vector3.new(30,0.1,30)
+
+
+Section6:NewButton("Tp To A Water Spot", "", function()
+
+    game.Players.LocalPlayer.Character:FindFirstChild("Body").CFrame = CFrame.new(-3484, 217, 825)
+    wait(1)
+    game.Players.LocalPlayer.Character:FindFirstChild("Body").CFrame = CFrame.new(-3484, 217, 825)
+
+end)
+
+Section6:NewButton("Tp To A Safe Place", "", function()
+
+    game.Players.LocalPlayer.Character:FindFirstChild("Body").CFrame = CFrame.new(-4141, 324, 1686)
+    wait(1)
+    game.Players.LocalPlayer.Character:FindFirstChild("Body").CFrame = CFrame.new(-4141, 324, 1686)
+
 end)
